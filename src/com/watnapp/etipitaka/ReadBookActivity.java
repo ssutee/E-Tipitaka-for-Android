@@ -2,7 +2,6 @@ package com.watnapp.etipitaka;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 
 import android.app.Activity;
@@ -198,7 +197,12 @@ public class ReadBookActivity extends Activity { //implements OnGesturePerformed
 		mainTipitakaDBAdapter.open();
 		Cursor n_cursor = mainTipitakaDBAdapter.getPageByItem(volume, item, language, true);
 		n_cursor.moveToPosition(sub);
-		int new_page = Integer.parseInt(n_cursor.getString(0));			
+		int new_page = 1;
+		
+		if(n_cursor.getCount() > 0) {
+			new_page = Integer.parseInt(n_cursor.getString(0));
+		}
+		
 		n_cursor.close();
 		mainTipitakaDBAdapter.close();
 		
@@ -302,6 +306,7 @@ public class ReadBookActivity extends Activity { //implements OnGesturePerformed
 	}
 	
 	private void compare() {
+		Log.i("ITEM",savedItems);
 		String [] items = savedItems.split("\\s+");
 		selected_page = gPage.getSelectedItemPosition() + 1;
 
