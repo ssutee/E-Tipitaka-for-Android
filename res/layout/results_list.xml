@@ -53,24 +53,33 @@
         android:stretchColumns="*"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content">
-		<TableRow>
+		<TableRow android:layout_marginBottom="2dp">
 			<TextView 
+			    android:background="@drawable/back"
 				android:id="@+id/vinai_label"
 				android:text="@string/s_vinai" 
 				android:textColor="#1e90ff"				
 				android:textSize="18dp" 
+				android:width="85dp"
+				android:gravity="center"
 				android:layout_gravity="center"/>
-			<TextView 
+			<TextView
+			    android:background="@drawable/back"			 
 				android:id="@+id/suttan_label"
 				android:text="@string/s_suttan" 				
 				android:textColor="#ff4500"
-				android:textSize="18dp" 
+				android:textSize="18dp"
+				android:width="85dp"
+				android:gravity="center"				 
 				android:layout_gravity="center"/>
 			<TextView 
+			    android:background="@drawable/back"			
 				android:id="@+id/abhidum_label"
 				android:text="@string/s_abhidum" 
 				android:textColor="#A020F0"
-				android:textSize="18dp" 
+				android:textSize="18dp"
+				android:width="85dp"
+				android:gravity="center"				 
 				android:layout_gravity="center"/>
 		</TableRow>
 		<TableRow>
