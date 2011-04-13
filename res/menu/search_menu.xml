@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  	xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/zoom_in_result"
+          android:title="@string/zoom_in"
+          android:icon="@drawable/ic_zoom_in"/>
+	<item android:id="@+id/zoom_out_result"
+		  android:icon="@drawable/ic_zoom_out"
+          android:title="@string/zoom_out" />
+   	<item android:id="@+id/jump_to_result_item"
+   		  android:icon="@drawable/ic_menu_goto"
+   		  android:title="@string/goto_position"/>
+   	<item android:id="@+id/results_bookmark"
+   		  android:icon="@drawable/ic_menu_star"
+   		  android:title="@string/bookmark"/>
+</menu>
+

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:layout_width="fill_parent" 
+  	android:layout_height="wrap_content"
+ 	>
+	<Button
+		android:id="@+id/goto_position_btn"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:text="@string/ok"
+  	/>
+  	<EditText
+	  	android:id="@+id/goto_position_edittext"
+		android:layout_alignParentLeft="true"
+	    android:layout_centerVertical="true"
+	    android:layout_toLeftOf="@id/goto_position_btn"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:inputType="number"
+	    android:maxLines="1"
+	    android:hint="@string/enter_position"
+	/>
+</RelativeLayout>

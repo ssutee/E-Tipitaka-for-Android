@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="thaibook">	
+		<item>" พระวินัยปิฎก เล่มที่ ๑ มหาวิภังค์ ภาค ๑ "</item>
+		<item>" พระวินัยปิฎก เล่มที่ ๒ มหาวิภังค์ ภาค ๒ "</item>
+		<item>" พระวินัยปิฎก เล่มที่ ๓ ภิกขุนีวิภังค์ "</item>
+		<item>" พระวินัยปิฎก เล่มที่ ๔ มหาวรรค ภาค ๑ "</item>
+		<item>" พระวินัยปิฎก เล่มที่ ๕ มหาวรรค ภาค ๒ "</item>
+		<item>" พระวินัยปิฎก เล่มที่ ๖ จุลวรรค ภาค ๑ "</item>
+		<item>" พระวินัยปิฎก เล่มที่ ๗ จุลวรรค ภาค ๒ "</item>
+		<item>" พระวินัยปิฎก เล่มที่ ๘ ปริวาร "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๑ ทีฆนิกาย สีลขันธวรรค "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๒ ทีฆนิกาย มหาวรรค "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๓ ทีฆนิกาย ปาฏิกวรรค "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๔ มัชฌิมนิกาย มูลปัณณาสก์ "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๕ มัชฌิมนิกาย มัชฌิมปัณณาสก์ "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๖ มัชฌิมนิกาย อุปริปัณณาสก์ "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๗ สังยุตตนิกาย สคาถวรรค "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๘ สังยุตตนิกาย นิทานวรรค "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๙ สังยุตตนิกาย ขันธวารวรรค "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๑๐ สังยุตตนิกาย สฬายตนวรรค "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๑๑ สังยุตตนิกาย มหาวารวรรค "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๑๒ อังคุตตรนิกาย เอก-ทุก-ติกนิบาต "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๑๓ อังคุตตรนิกาย จตุกกนิบาต "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๑๔ อังคุตตรนิกาย ปัญจก-ฉักกนิบาต "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๑๕ อังคุตตรนิกาย สัตตก-อัฏฐก-นวกนิบาต "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๑๖ อังคุตตรนิกาย ทสก-เอกาทสกนิบาต "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๑๗ ขุททกนิกาย ขุททกปาฐ-ธรรมบท-อุทาน-อิติวุตตกะ-สุตตนิบาต "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๑๘ ขุททกนิกาย วิมาน-เปตวัตถุ เถร-เถรีคาถา "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๑๙ ขุททกนิกาย ชาดก ภาค ๑ "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๒๐ ขุททกนิกาย ชาดก ภาค ๒ "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๒๑ ขุททกนิกาย มหานิทเทส "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๒๒ ขุททกนิกาย จูฬนิทเทส "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๒๓ ขุททกนิกาย ปฏิสัมภิทามรรค "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๒๔ ขุททกนิกาย อปทาน ภาค ๑ "</item>
+		<item>" พระสุตตันตปิฎก เล่มที่ ๒๕ ขุททกนิกาย อปทาน ภาค ๒ พุทธวังสะ-จริยาปิฎก "</item>
+		<item>" พระอภิธรรมปิฎก เล่มที่ ๑ ธรรมสังคณีปกรณ์ "</item>
+		<item>" พระอภิธรรมปิฎก เล่มที่ ๒ วิภังคปกรณ์ "</item>
+		<item>" พระอภิธรรมปิฎก เล่มที่ ๓ ธาตุกถา-ปุคคลบัญญัติปกรณ์ "</item>
+		<item>" พระอภิธรรมปิฎก เล่มที่ ๔ กถาวัตถุปกรณ์ "</item>
+		<item>" พระอภิธรรมปิฎก เล่มที่ ๕ ยมกปกรณ์ ภาค ๑ "</item>
+		<item>" พระอภิธรรมปิฎก เล่มที่ ๖ ยมกปกรณ์ ภาค ๒ "</item>
+		<item>" พระอภิธรรมปิฎก เล่มที่ ๗ มหาปัฏฐานปกรณ์ ภาค ๑ "</item>
+		<item>" พระอภิธรรมปิฎก เล่มที่ ๘ มหาปัฏฐานปกรณ์ ภาค ๒ "</item>
+		<item>" พระอภิธรรมปิฎก เล่มที่ ๙ มหาปัฏฐานปกรณ์ ภาค ๓ "</item>
+		<item>" พระอภิธรรมปิฎก เล่มที่ ๑๐ ปัฏฐานปกรณ์ ภาค ๔ "</item>
+		<item>" พระอภิธรรมปิฎก เล่มที่ ๑๑ ปัฏฐานปกรณ์ ภาค ๕ "</item>
+		<item>" พระอภิธรรมปิฎก เล่มที่ ๑๒ ปัฏฐานปกรณ์ ภาค ๖ "</item>
+	</string-array>
+	<string-array name="category"> 
+		<item>" พระวินัยปิฎก "</item>
+		<item>" พระสุตตันตปิฎก "</item>
+		<item>" พระอภิธรรมปิฎก "</item>
+	</string-array>
+	<integer-array name="ncategory">
+		<item>8</item>
+		<item>25</item>
+		<item>12</item>
+	</integer-array>
+	<integer-array name="nitem">
+		<item>657</item>
+		<item>881</item>
+		<item>504</item>
+		<item>252</item>
+		<item>261</item>
+		<item>694</item>
+		<item>664</item>
+		<item>1366</item>
+		<item>385</item>
+		<item>330</item>
+		<item>475</item>
+		<item>566</item>
+		<item>759</item>
+		<item>865</item>
+		<item>957</item>
+		<item>727</item>
+		<item>612</item>
+		<item>803</item>
+		<item>1803</item>
+		<item>599</item>
+		<item>274</item>
+		<item>401</item>
+		<item>283</item>
+		<item>231</item>
+		<item>444</item>
+		<item>474</item>
+		<item>2549</item>
+		<item>1269</item>
+		<item>987</item>
+		<item>821</item>
+		<item>741</item>
+		<item>412</item>
+		<item>180</item>
+		<item>987</item>
+		<item>1118</item>
+		<item>515</item>
+		<item>1897</item>
+		<item>1581</item>
+		<item>1454</item>
+		<item>1767</item>
+		<item>2268</item>
+		<item>730</item>
+		<item>876</item>
+		<item>1911</item>
+		<item>1488</item>
+	</integer-array>
+	<integer-array name="npage_thai">
+		<item>754</item>
+		<item>717</item>
+		<item>328</item>
+		<item>304</item>
+		<item>278</item>
+		<item>328</item>
+		<item>279</item>
+		<item>517</item>
+		<item>383</item>
+		<item>261</item>
+		<item>288</item>
+		<item>430</item>
+		<item>518</item>
+		<item>413</item>
+		<item>289</item>
+		<item>288</item>
+		<item>310</item>
+		<item>402</item>
+		<item>469</item>
+		<item>290</item>
+		<item>240</item>
+		<item>407</item>
+		<item>379</item>
+		<item>333</item>
+		<item>418</item>
+		<item>447</item>
+		<item>462</item>
+		<item>318</item>
+		<item>494</item>
+		<item>331</item>
+		<item>364</item>
+		<item>428</item>
+		<item>408</item>
+		<item>339</item>
+		<item>532</item>
+		<item>188</item>
+		<item>842</item>
+		<item>731</item>
+		<item>525</item>
+		<item>818</item>
+		<item>674</item>
+		<item>466</item>
+		<item>574</item>
+		<item>659</item>
+		<item>474</item>		
+	</integer-array>
+	<integer-array name="npage_pali">
+		<item>444</item>
+		<item>571</item>
+		<item>267</item>
+		<item>361</item>
+		<item>356</item>
+		<item>374</item>
+		<item>423</item>
+		<item>553</item>
+		<item>312</item>
+		<item>391</item>
+		<item>343</item>
+		<item>609</item>
+		<item>689</item>
+		<item>547</item>
+		<item>353</item>
+		<item>332</item>
+		<item>340</item>
+		<item>489</item>
+		<item>589</item>
+		<item>385</item>
+		<item>346</item>
+		<item>503</item>
+		<item>487</item>
+		<item>393</item>
+		<item>558</item>
+		<item>507</item>
+		<item>571</item>
+		<item>453</item>
+		<item>630</item>
+		<item>429</item>
+		<item>642</item>
+		<item>574</item>
+		<item>598</item>
+		<item>381</item>
+		<item>588</item>
+		<item>236</item>
+		<item>661</item>
+		<item>753</item>
+		<item>556</item>
+		<item>577</item>
+		<item>647</item>
+		<item>428</item>
+		<item>531</item>
+		<item>600</item>
+		<item>538</item>
+	</integer-array>
+	<string-array name="thainum">
+		<item>๐</item>
+		<item>๑</item>
+		<item>๒</item>
+		<item>๓</item>
+		<item>๔</item>
+		<item>๕</item>
+		<item>๖</item>
+		<item>๗</item>
+		<item>๘</item>
+		<item>๙</item>
+	</string-array>
+    <string-array name="langs">
+        <item>ไทย</item>
+        <item>บาลี</item>
+    </string-array>	
+</resources>

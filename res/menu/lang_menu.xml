@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  	xmlns:android="http://schemas.android.com/apk/res/android">
+	<!-- <item android:id="@+id/select_lang"
+          android:title="@string/change_language" />  -->
+	<!-- <item android:id="@+id/clear_history"
+          android:title="@string/clear_history" />  -->          
+	<item android:id="@+id/bookmark"
+          android:title="@string/bookmark" />
+  	<item android:id="@+id/private_info"
+  		  android:title="@string/private_info">
+  		  <menu>
+			<group android:checkableBehavior="single">
+				<item android:id="@+id/import_info" android:title="@string/import_info" />
+				<item android:id="@+id/export_info" android:title="@string/export_info" />
+			</group>  		  
+  		  </menu>
+  	</item>
+  	<item android:id="@+id/limitation"
+		  android:title="@string/limitation" />
+  	<item android:id="@+id/about"
+		  android:title="@string/about" />
+		            
+
+</menu>

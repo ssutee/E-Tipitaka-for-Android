@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical">
+<CheckBox 
+	android:layout_marginLeft="20dp"
+	android:layout_marginRight="20dp" 
+	android:layout_width="wrap_content" 
+	android:text="@string/vinai_full" 
+	android:checked="true"
+	android:id="@+id/cb_vinai" 
+	android:layout_height="wrap_content"/>
+<CheckBox 
+	android:layout_marginLeft="20dp"
+	android:layout_marginRight="20dp" 
+	android:layout_width="wrap_content" 
+	android:text="@string/suttan_full" 
+	android:checked="true"
+	android:id="@+id/cb_suttan"
+	android:layout_height="wrap_content"/>
+<CheckBox 
+	android:layout_marginLeft="20dp"
+	android:layout_marginRight="20dp" 
+	android:layout_width="wrap_content"
+	android:text="@string/abhidum_full" 
+	android:id="@+id/cb_abhidham" 
+	android:layout_height="wrap_content"/>
+<Button 
+	android:text="@string/ok"  
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content" 
+	android:id="@+id/okcatebtn" 
+	android:layout_marginTop="20dp"
+	android:layout_marginBottom="10dp"
+	android:layout_gravity="center" 
+	/>
+</LinearLayout>

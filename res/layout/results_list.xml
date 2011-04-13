@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:orientation="vertical"
+  	android:layout_width="fill_parent"
+  	android:layout_height="fill_parent"
+  	android:paddingLeft="8dp"
+  	android:paddingRight="8dp">
+
+	<!-- 
+	<TextView android:id="@+id/search_label"
+           	   android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:layout_alignParentTop="true"
+               android:text="@string/search_page"
+               android:textColor="@android:color/primary_text_dark_nodisable"
+               android:layout_marginTop="5dp"
+               android:textSize="18dp"
+	/>
+	-->
+	
+	<TextView android:id="@+id/search_word"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+ 			   android:layout_alignParentTop="true"
+               android:textColor="@android:color/primary_text_dark_nodisable"
+               android:textSize="18dp"
+	/>
+    <TextView android:id="@+id/result_status"
+               android:layout_width="fill_parent"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:layout_below="@id/search_word"
+               android:textColor="@android:color/primary_text_dark_nodisable"
+               android:textSize="18dp"
+               />
+	<View 
+		android:id="@+id/result_divider_1"
+		android:background="@drawable/black_white_gradient"
+		android:layout_width="fill_parent"
+		android:layout_marginTop="5dp"
+		android:layout_marginBottom="5dp"
+		android:layout_below="@id/result_status"
+		android:layout_height="2dp"/>	
+               
+               
+	<TableLayout
+		android:id="@+id/table_layout"
+        android:layout_below="@id/result_divider_1"
+        android:layout_centerHorizontal="true"
+        android:stretchColumns="*"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content">
+		<TableRow>
+			<TextView 
+				android:id="@+id/vinai_label"
+				android:text="@string/s_vinai" 
+				android:textColor="#1e90ff"				
+				android:textSize="18dp" 
+				android:layout_gravity="center"/>
+			<TextView 
+				android:id="@+id/suttan_label"
+				android:text="@string/s_suttan" 				
+				android:textColor="#ff4500"
+				android:textSize="18dp" 
+				android:layout_gravity="center"/>
+			<TextView 
+				android:id="@+id/abhidum_label"
+				android:text="@string/s_abhidum" 
+				android:textColor="#A020F0"
+				android:textSize="18dp" 
+				android:layout_gravity="center"/>
+		</TableRow>
+		<TableRow>
+			<TextView 
+				android:id="@+id/npage1" 
+				android:text="" 
+				android:textSize="16dp" 
+				android:layout_gravity="center"/>
+			<TextView 
+				android:id="@+id/npage2" 
+				android:text="" 
+				android:textSize="16dp" 
+				android:layout_gravity="center"/>
+			<TextView 
+				android:id="@+id/npage3" 
+				android:text="" 
+				android:textSize="16dp" 
+				android:layout_gravity="center"/>
+		</TableRow>
+		<TableRow>
+			<TextView 
+				android:id="@+id/nsutt1" 
+				android:text="test" 
+				android:textSize="16dp" 
+				android:layout_gravity="center"/>
+			<TextView 
+				android:id="@+id/nsutt2" 
+				android:text="test" 
+				android:textSize="16dp" 
+				android:layout_gravity="center"/>
+			<TextView 
+				android:id="@+id/nsutt3" 
+				android:text="test" 
+				android:textSize="16dp" 
+				android:layout_gravity="center"/>
+		</TableRow>		
+	</TableLayout>
+
+	<View 
+		android:id="@+id/result_divider_2"
+		android:background="@drawable/black_white_gradient"
+		android:layout_width="fill_parent"
+		android:layout_marginTop="5dp"
+		android:layout_marginBottom="5dp"
+		android:layout_below="@id/table_layout"
+		android:layout_height="2dp"/>	
+	
+    <ListView android:id="@+id/result_list"
+    		   android:background="#FF000000"
+               android:layout_width="fill_parent"
+               android:layout_height="fill_parent"
+               android:layout_below="@id/result_divider_2"
+               android:scrollbars="none"
+               android:drawSelectorOnTop="true"/>
+
+  	
+</RelativeLayout>

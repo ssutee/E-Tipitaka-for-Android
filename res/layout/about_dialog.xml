@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:layout_width="fill_parent"
+  	android:layout_height="fill_parent">
+
+	<RelativeLayout
+  		android:layout_width="wrap_content"
+  		android:layout_height="wrap_content"
+  		android:layout_centerHorizontal="true"
+  		android:layout_marginTop="50dp"
+  		android:id="@+id/about_header">
+  		
+  		<ImageView
+			android:id="@+id/about_logo"
+			android:src="@drawable/logo_96"
+			android:layout_width="wrap_content"
+			android:layout_alignParentTop="true"
+			android:layout_height="wrap_content"/>
+			
+		<TextView
+			android:id="@+id/about_text_1"
+			android:layout_marginLeft="5dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_toRightOf="@id/about_logo"
+			android:layout_alignTop="@id/about_logo"
+			android:text="E-Tipitaka"
+			android:textSize="22dp"
+			android:textColor="@android:color/primary_text_dark_nodisable"/>
+
+		<TextView
+			android:id="@+id/about_text_2"
+			android:layout_marginLeft="10dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="for Android"
+			android:textSize="12dp"
+			android:textColor="@android:color/primary_text_dark_nodisable"
+			android:layout_toRightOf="@id/about_logo"
+			android:layout_below="@id/about_text_1"/>
+		<TextView
+			android:id="@+id/about_text_3"
+			android:layout_marginLeft="10dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_toRightOf="@id/about_logo"
+			android:text="Version "
+			android:textSize="12dp"
+			android:textColor="@android:color/primary_text_dark_nodisable"
+			android:layout_below="@id/about_text_2"/>  		
+	</RelativeLayout>		
+		
+
+	<TextView
+		android:layout_marginTop="10dp"
+		android:id="@+id/program_thai_name"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:gravity="center"
+		android:text="@string/program_thai_name"
+		android:textSize="16dp"
+		android:textColor="@android:color/primary_text_dark_nodisable"
+		android:layout_below="@id/about_header"/>
+		
+		
+	<TextView
+		android:layout_marginTop="15dp"
+		android:id="@+id/about_text_4"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:gravity="center"
+		android:text="@string/about_content_1"
+		android:textSize="11dp"
+		android:textColor="@android:color/primary_text_dark_nodisable"
+		android:layout_below="@id/program_thai_name"/>
+	<TextView
+		android:layout_marginTop="15dp"
+		android:id="@+id/about_text_5"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:gravity="center"
+		android:text="@string/about_content_2"
+		android:textSize="11dp"
+		android:textColor="@android:color/primary_text_dark_nodisable"
+		android:layout_below="@id/about_text_4"/>
+
+	<TextView
+		android:layout_marginTop="10dp"
+		android:id="@+id/about_text_6"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:gravity="center"
+		android:text="@string/about_content_3"
+		android:textSize="11dp"
+		android:textColor="@android:color/primary_text_dark_nodisable"
+		android:layout_below="@id/about_text_5"/>
+
+	<TextView
+		android:layout_marginTop="10dp"
+		android:id="@+id/about_text_7"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:gravity="center"
+		android:text="@string/about_content_4"
+		android:textSize="11dp"
+		android:textColor="@android:color/primary_text_dark_nodisable"
+		android:layout_below="@id/about_text_6"/>
+
+	<TextView
+		android:layout_marginTop="25dp"
+		android:id="@+id/about_text_8"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:gravity="center"
+		android:text="@string/license"
+		android:textSize="11dp"
+		android:textColor="@android:color/primary_text_dark_nodisable"
+		android:layout_below="@id/about_text_7"/>
+	
+	<!-- 
+	<TextView
+		android:layout_marginTop="5dp"
+		android:id="@+id/about_link"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:gravity="center"
+		android:autoLink="web"
+		android:text="www.etipitaka.com"
+		android:textSize="11dp"
+		android:textColor="@android:color/primary_text_dark_nodisable"
+		android:layout_below="@id/about_text_8"/>
+	 -->	
+		
+		
+
+
+</RelativeLayout>

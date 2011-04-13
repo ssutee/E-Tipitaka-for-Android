@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:layout_width="fill_parent" 
+  	android:layout_height="wrap_content"
+ 	>
+ 	<TextView
+ 		android:id="@+id/assign_info"
+ 		android:layout_width="fill_parent"
+ 		android:layout_height="wrap_content"
+ 		android:textSize="18dp"
+ 		android:paddingLeft="5dp"
+ 		android:layout_marginBottom="5dp"
+ 		android:text="test"/>
+	<Button
+		android:id="@+id/assign_btn"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/assign_info"
+		android:layout_alignParentRight="true"
+		android:text="@string/assign"
+  	/>
+  	<EditText
+  		android:id="@+id/code_text"
+		android:layout_alignParentLeft="true"
+	    android:layout_below="@id/assign_info"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:inputType="textCapCharacters"
+	    android:maxLength="1"
+	    android:maxLines="1"  
+	    android:hint="@string/enter_a_to_z"
+	/>
+  		
+  	<EditText
+	  	android:id="@+id/assign_text"
+	    android:layout_centerVertical="true"
+	    android:layout_below="@id/assign_info"
+	    android:layout_toRightOf="@id/code_text"
+	    android:layout_toLeftOf="@id/assign_btn"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:inputType="number"
+	    android:maxLength="4"
+	    android:maxLines="1" 
+	    android:hint="@string/enter_priority" 
+	/>
+</RelativeLayout>

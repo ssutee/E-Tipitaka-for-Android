@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content">
+  
+  	<View
+  		android:id="@+id/item_splitter" 
+		android:background="@android:color/black"
+		android:layout_width="fill_parent"
+		android:layout_alignParentTop="true"
+		android:layout_height="2dp"/>
+  
+  	<LinearLayout
+  		android:id="@+id/priority_group"
+  		android:orientation="vertical"
+  		android:layout_width="wrap_content"
+  		android:layout_height="wrap_content"
+		android:layout_alignParentRight="true"
+		android:layout_centerVertical="true">
+		<TextView
+			android:id="@+id/priority_code"
+			android:text=""
+			android:textColor="@android:color/secondary_text_dark_nodisable"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:gravity="center"
+			android:textSize="22dp"
+			android:paddingRight="10dp"
+		/>           				
+	  	<TextView
+			android:id="@+id/priority_number"
+			android:text=""
+			android:textColor="@android:color/secondary_text_dark_nodisable"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:gravity="center"
+			android:textSize="22dp"
+			android:paddingRight="10dp"
+		/>           	
+  	</LinearLayout>
+  	
+  
+    <LinearLayout
+  		android:id="@+id/result_item_main"
+  		android:orientation="vertical"
+  		android:layout_width="fill_parent"
+  		android:layout_toLeftOf="@id/priority_group"
+  		android:layout_below="@id/item_splitter"
+  		android:layout_height="wrap_content">
+  		
+  
+     <TextView android:id="@+id/hline1"
+         android:textSize="20dp"
+         android:textColor="@android:color/primary_text_dark_nodisable"
+         android:textStyle="bold"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_alignParentTop="true"
+         android:paddingLeft="10dp"
+         android:paddingTop="5dp"
+         />
+
+     <TextView android:id="@+id/hline2"
+         android:textSize="18dp"
+         android:textColor="@android:color/secondary_text_dark_nodisable"
+         android:layout_marginLeft="20dp"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/hline1"
+         />  
+
+     <TextView android:id="@+id/hline3"
+         android:textSize="18dp"
+         android:textColor="@android:color/tertiary_text_dark"
+         android:layout_marginLeft="20dp"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/hline2"
+         android:paddingBottom="10dp"
+         />  
+
+  	</LinearLayout>
+  
+</RelativeLayout>

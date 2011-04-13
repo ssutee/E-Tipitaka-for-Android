@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical">	  
+	<TextView
+		android:text=""
+		android:id="@+id/memo_sub_title"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="5dp"
+		android:textSize="16dp"
+		android:gravity="center_horizontal"
+		android:layout_gravity="center_horizontal"/>		
+	<EditText 
+		android:text="" 
+		android:layout_gravity="center_horizontal"
+		android:gravity="top"
+		android:singleLine="false"
+		android:lines="5"
+		android:textSize="16dp"
+		android:id="@+id/memo_text" 
+		android:layout_height="wrap_content" 
+		android:layout_width="fill_parent"
+		android:hint="@string/enter_note"
+		/>
+	<Button 
+		android:text="@string/save" 
+		android:id="@+id/memo_btn" 
+		android:layout_gravity="center_horizontal"		
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"/>
+</LinearLayout>
