@@ -18,7 +18,7 @@
 		android:layout_gravity="center_horizontal"
 		android:gravity="top"
 		android:singleLine="false"
-		android:lines="5"
+		android:lines="3"
 		android:textSize="16dp"
 		android:id="@+id/memo_text" 
 		android:layout_height="wrap_content" 
