@@ -238,6 +238,7 @@ public class BookmarkThaiActivity extends Activity {
         bmLine1Size = prefs.getFloat("BmLine1Size", 16f);        
         bmLine2Size = prefs.getFloat("BmLine2Size", 14f); 
         bmLine3Size = prefs.getFloat("BmLine3Size", 12f); 
+        updateItemList();
         adapter.notifyDataSetChanged();
 	}
 	
@@ -247,6 +248,7 @@ public class BookmarkThaiActivity extends Activity {
         bmLine1Size = prefs.getFloat("BmLine1Size", 16f);        
         bmLine2Size = prefs.getFloat("BmLine2Size", 14f);
         bmLine3Size = prefs.getFloat("BmLine3Size", 12f);
+        updateItemList();
         adapter.notifyDataSetChanged();
 	}
 	
