@@ -17,7 +17,10 @@
 			android:text="@string/note_top"/>
 		<RadioButton
 			android:id="@+id/sort_by_volume_page"
-			android:text="@string/volume_page"/>				
+			android:text="@string/volume_page"/>
+		<RadioButton
+			android:id="@+id/sort_by_keywords"
+			android:text="@string/keywords"/>											
 	</RadioGroup>
 	<RadioGroup 
 		android:layout_below="@id/RadioGroup01" 

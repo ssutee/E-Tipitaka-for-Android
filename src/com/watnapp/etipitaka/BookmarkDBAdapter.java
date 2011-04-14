@@ -111,11 +111,33 @@ public class BookmarkDBAdapter {
 		return db.query(DATABASE_TABLE, new String[] {KEY_ID, KEY_LANG, KEY_VOLUME, KEY_PAGE, KEY_ITEM, KEY_NOTE, KEY_KEYWORDS}, null, null, null, null, null);
 	}
 
+	public Cursor getEntries(String _lang) {
+		String where = KEY_LANG + "=" + "'" + _lang + "'";
+		return db.query(DATABASE_TABLE, 
+				new String[] {KEY_ID, KEY_LANG, KEY_VOLUME, KEY_PAGE, KEY_ITEM, KEY_NOTE, KEY_KEYWORDS}, 
+				where, null, null, null, null);
+	}	
+	
 	public Cursor getEntries(String _lang, String _keywords) {
 		String where = KEY_LANG + "=" + "'" + _lang + "'" + " AND " + KEY_KEYWORDS + " = " + "'" + _keywords + "'";
 		return db.query(DATABASE_TABLE, 
 				new String[] {KEY_ID, KEY_LANG, KEY_VOLUME, KEY_PAGE, KEY_ITEM, KEY_NOTE, KEY_KEYWORDS}, 
 				where, null, null, null, null);
+	}
+	
+	public Cursor getEntries(String _lang, String sortKey, boolean isDesc) {
+		String where = KEY_LANG + "=" + "'" + _lang + "'";
+		String orderby;
+		if(isDesc) {
+			orderby = sortKey + " DESC, " + KEY_PAGE + " DESC";
+		}
+		else {
+			orderby = sortKey + " ASC,"  + KEY_PAGE + " ASC";
+		}		
+		
+		return db.query(DATABASE_TABLE, 
+				new String[] {KEY_ID, KEY_LANG, KEY_VOLUME, KEY_PAGE, KEY_ITEM, KEY_NOTE, KEY_KEYWORDS}, 
+				where, null, null, null, orderby);
 	}
 	
 	public Cursor getEntries(String _lang, String _keywords, String sortKey, boolean isDesc) {

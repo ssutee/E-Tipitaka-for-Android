@@ -44,6 +44,7 @@ public class BookmarkPaliActivity extends Activity {
 	private SharedPreferences prefs;
 	private float bmLine1Size=16f;
 	private float bmLine2Size=14f;
+	private float bmLine3Size=12f;
 	private String keywords = "";
 	private ArrayList<String> removedItems = new ArrayList<String>(); 
 	boolean isDesc;
@@ -88,6 +89,8 @@ public class BookmarkPaliActivity extends Activity {
 			line1.setTextSize(prefs.getFloat("BmLine1Size", 16f));
 			TextView line2 = (TextView)view.findViewById(R.id.bm_line2);
 			line2.setTextSize(prefs.getFloat("BmLine2Size", 14f));			
+			TextView line3 = (TextView)view.findViewById(R.id.bm_keywords);
+			line3.setTextSize(prefs.getFloat("BmLine3Size", 12f));			
 
 			if(volume >= 1 && volume <= 8) { // vinai
 				line1.setTextColor(Color.rgb(30, 144, 255));
@@ -121,16 +124,20 @@ public class BookmarkPaliActivity extends Activity {
 			case R.id.zoom_in_result:
 				bmLine1Size=prefs.getFloat("BmLine1Size", 16f)+1;
 				bmLine2Size=prefs.getFloat("BmLine2Size", 14f)+1;
+				bmLine3Size=prefs.getFloat("BmLine3Size", 12f)+1;
 				editor.putFloat("BmLine1Size", bmLine1Size);
 				editor.putFloat("BmLine2Size", bmLine2Size);
+				editor.putFloat("BmLine3Size", bmLine3Size);
 				editor.commit();
 				adapter.notifyDataSetChanged();
 				return true;
 			case R.id.zoom_out_result:
 				bmLine1Size=prefs.getFloat("BmLine1Size", 16f)-1;
 				bmLine2Size=prefs.getFloat("BmLine2Size", 14f)-1;
+				bmLine3Size=prefs.getFloat("BmLine3Size", 12f)-1;
 				editor.putFloat("BmLine1Size", bmLine1Size);
 				editor.putFloat("BmLine2Size", bmLine2Size);
+				editor.putFloat("BmLine3Size", bmLine3Size);
 				editor.commit();
 				adapter.notifyDataSetChanged();
 				return true;
@@ -156,7 +163,9 @@ public class BookmarkPaliActivity extends Activity {
         	((RadioButton)sortDialog.findViewById(R.id.sort_by_id)).setChecked(true);
         } else if (sortKey.equals(BookmarkDBAdapter.KEY_VOLUME)) {
         	((RadioButton)sortDialog.findViewById(R.id.sort_by_volume_page)).setChecked(true);
-        }       
+        } else if (sortKey.equals(BookmarkDBAdapter.KEY_KEYWORDS)) {
+        	((RadioButton)sortDialog.findViewById(R.id.sort_by_keywords)).setChecked(true);
+        }
         
         if(isDesc) {
         	((RadioButton)sortDialog.findViewById(R.id.desc_sort)).setChecked(true);
@@ -182,6 +191,8 @@ public class BookmarkPaliActivity extends Activity {
 					sortKey = BookmarkDBAdapter.KEY_NOTE;
 				} else if(((RadioButton)sortDialog.findViewById(R.id.sort_by_volume_page)).isChecked()) {
 					sortKey = BookmarkDBAdapter.KEY_VOLUME;
+				} else if(((RadioButton)sortDialog.findViewById(R.id.sort_by_keywords)).isChecked()) {
+					sortKey = BookmarkDBAdapter.KEY_KEYWORDS;
 				} 
 				
 				editor.putBoolean("BM_IS_DESC", isDesc);
@@ -197,7 +208,7 @@ public class BookmarkPaliActivity extends Activity {
 	}
 	
 	private MatrixCursor convertCursor(Cursor cursor) {
-		final String [] matrix = { "_id", "line1", "line2", BookmarkDBAdapter.KEY_VOLUME};
+		final String [] matrix = { "_id", "line1", "line2", BookmarkDBAdapter.KEY_VOLUME, BookmarkDBAdapter.KEY_KEYWORDS};
 		MatrixCursor newCursor = new MatrixCursor(matrix);		
 		
 		cursor.moveToFirst();
@@ -207,13 +218,14 @@ public class BookmarkPaliActivity extends Activity {
 			int page = cursor.getInt(BookmarkDBAdapter.PAGE_COL);
 			int item = cursor.getInt(BookmarkDBAdapter.ITEM_COL);
 			String note = cursor.getString(BookmarkDBAdapter.NOTE_COL);
+			String keywords = cursor.getString(BookmarkDBAdapter.KEYWORDS_COL);
 			// Utils.arabic2thai(""+(key+1), getResources()) + ". " + 
 			String line1 = getString(R.string.th_book_label) + " " + Utils.arabic2thai(Integer.toString(volume), getResources());
 			line1 = line1 + " " + getString(R.string.th_page_label) + " " + Utils.arabic2thai(Integer.toString(page), getResources());
 			line1 = line1 + " " + getString(R.string.th_items_label) + " " + Utils.arabic2thai(Integer.toString(item), getResources());
 			String line2 = note;
 			
-			newCursor.addRow(new Object[] { key++, line1, line2, volume});
+			newCursor.addRow(new Object[] { key++, line1, line2, volume, keywords});
 			cursor.moveToNext();
 		}
 		cursor.close();
@@ -225,6 +237,7 @@ public class BookmarkPaliActivity extends Activity {
 		super.onResume();
         bmLine1Size = prefs.getFloat("BmLine1Size", 16f);        
         bmLine2Size = prefs.getFloat("BmLine2Size", 14f); 
+        bmLine3Size = prefs.getFloat("BmLine3Size", 12f); 
         adapter.notifyDataSetChanged();
 	}
 	
@@ -233,6 +246,7 @@ public class BookmarkPaliActivity extends Activity {
 		super.onRestart();
         bmLine1Size = prefs.getFloat("BmLine1Size", 16f);        
         bmLine2Size = prefs.getFloat("BmLine2Size", 14f);
+        bmLine3Size = prefs.getFloat("BmLine3Size", 12f);
         adapter.notifyDataSetChanged();
 	}
 	
@@ -246,7 +260,8 @@ public class BookmarkPaliActivity extends Activity {
         prefs =  PreferenceManager.getDefaultSharedPreferences(context);
 
         bmLine1Size = prefs.getFloat("BmLine1Size", 16f);        
-        bmLine2Size = prefs.getFloat("BmLine2Size", 14f);  
+        bmLine2Size = prefs.getFloat("BmLine2Size", 14f);
+        bmLine3Size = prefs.getFloat("BmLine3Size", 12f);
         sortKey = prefs.getString("BM_SORT_KEY", BookmarkDBAdapter.KEY_VOLUME);
         isDesc = prefs.getBoolean("BM_IS_DESC", false);        
         
@@ -267,12 +282,18 @@ public class BookmarkPaliActivity extends Activity {
 		        sortKey = prefs.getString("BM_SORT_KEY", BookmarkDBAdapter.KEY_VOLUME);
 		        isDesc = prefs.getBoolean("BM_IS_DESC", false);
 				bookmarkDBAdapter.open();
-				Cursor cursor = bookmarkDBAdapter.getEntries(language, keywords, sortKey, isDesc);
+				Cursor cursor;
+				if(keywords.length() == 0) {
+					cursor = bookmarkDBAdapter.getEntries(language, sortKey, isDesc);
+				} else {
+					cursor = bookmarkDBAdapter.getEntries(language, keywords, sortKey, isDesc);
+				}
 				cursor.moveToPosition(arg2);
 
 				int item = cursor.getInt(BookmarkDBAdapter.ITEM_COL);
 				int volumn = cursor.getInt(BookmarkDBAdapter.VOLUME_COL);
 				int page = cursor.getInt(BookmarkDBAdapter.PAGE_COL);
+				String tmp_keywords = cursor.getString(BookmarkDBAdapter.KEYWORDS_COL);
 				
 				cursor.close();
 				bookmarkDBAdapter.close();
@@ -282,8 +303,9 @@ public class BookmarkPaliActivity extends Activity {
         		dataBundle.putInt("VOL", volumn);
         		dataBundle.putInt("PAGE", page);
         		dataBundle.putString("LANG", language);
-        		if(keywords.length() > 0) {
-        			dataBundle.putString("QUERY", keywords);
+        		
+        		if(tmp_keywords.length() > 0) {
+        			dataBundle.putString("QUERY", tmp_keywords);
         		} else {
         			dataBundle.putInt("ITEM", item);
         		}
@@ -301,22 +323,56 @@ public class BookmarkPaliActivity extends Activity {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				selectedItemPosition = arg2;
 				AlertDialog.Builder builder = new AlertDialog.Builder(BookmarkPaliActivity.this);
-				final CharSequence[] items = {getString(R.string.edit), getString(R.string.delete)};
-				builder.setItems(items, new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						switch(which) {
-							case 0: // edit
-								editItemAt(selectedItemPosition);
-								break;
-							case 1: // delete
-								deleteItemAt(selectedItemPosition);
-								break;
+				
+				CharSequence[] items1 = {getString(R.string.edit), getString(R.string.delete)};
+				CharSequence[] items2 = {getString(R.string.edit)};
+				
+				
+		        sortKey = prefs.getString("BM_SORT_KEY", BookmarkDBAdapter.KEY_VOLUME);
+		        isDesc = prefs.getBoolean("BM_IS_DESC", false);
+				bookmarkDBAdapter.open();
+				Cursor cursor;
+				if(keywords.length() == 0) {
+					cursor = bookmarkDBAdapter.getEntries(language, sortKey, isDesc);
+				} else {
+					cursor = bookmarkDBAdapter.getEntries(language, keywords, sortKey, isDesc);
+				}
+				cursor.moveToPosition(arg2);
+
+				String k = cursor.getString(BookmarkDBAdapter.KEYWORDS_COL);
+				
+				cursor.close();
+				bookmarkDBAdapter.close();				
+								
+				if(k.length() == 0) {
+					builder.setItems(items1, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							switch(which) {
+								case 0: // edit
+									editItemAt(selectedItemPosition);
+									break;
+								case 1: // delete
+									deleteItemAt(selectedItemPosition);
+									break;
+							}
+							bmItemDialog.dismiss();
 						}
-						
-						bmItemDialog.dismiss();
-					}
-				});
+					});
+				} else {
+					builder.setItems(items2, new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							switch(which) {
+								case 0: // edit
+									editItemAt(selectedItemPosition);
+									break;
+							}
+							bmItemDialog.dismiss();
+						}
+					});					
+				}
+								
 				bmItemDialog = builder.create();
 				bmItemDialog.show();
 				
@@ -330,10 +386,16 @@ public class BookmarkPaliActivity extends Activity {
 		isDesc = prefs.getBoolean("BM_IS_DESC", false);
 		sortKey = prefs.getString("BM_SORT_KEY", BookmarkDBAdapter.KEY_VOLUME);
 		bookmarkDBAdapter.open();
-		savedCursor = convertCursor(bookmarkDBAdapter.getEntries(language, keywords, sortKey, isDesc));
+		
+		if(keywords.length() == 0) {
+			savedCursor = convertCursor(bookmarkDBAdapter.getEntries(language, sortKey, isDesc));
+		} else {
+			savedCursor = convertCursor(bookmarkDBAdapter.getEntries(language, keywords, sortKey, isDesc));
+		}
+
 		adapter = new SpecialCursorAdapter(BookmarkPaliActivity.this, R.layout.bookmark_item, savedCursor,
-    	        		new String[] {"line1", "line2"},
-    	        		new int[] {R.id.bm_line1, R.id.bm_line2});
+    	        		new String[] {"line1", "line2", BookmarkDBAdapter.KEY_KEYWORDS},
+    	        		new int[] {R.id.bm_line1, R.id.bm_line2, R.id.bm_keywords});
 		listview.setAdapter(adapter);
 		bookmarkDBAdapter.close();
 	}
@@ -342,7 +404,12 @@ public class BookmarkPaliActivity extends Activity {
         sortKey = prefs.getString("BM_SORT_KEY", BookmarkDBAdapter.KEY_VOLUME);
         isDesc = prefs.getBoolean("BM_IS_DESC", false);
 		bookmarkDBAdapter.open();
-		Cursor c = bookmarkDBAdapter.getEntries(language, keywords, sortKey, isDesc);
+		Cursor c;
+		if(keywords.length() == 0) {
+			c = bookmarkDBAdapter.getEntries(language, sortKey, isDesc);
+		} else {
+			c = bookmarkDBAdapter.getEntries(language, keywords, sortKey, isDesc);
+		}
 		final int position = _position;
 		if(c.moveToPosition(position)) {
 			String note = c.getString(BookmarkDBAdapter.NOTE_COL);
@@ -360,7 +427,12 @@ public class BookmarkPaliActivity extends Activity {
 		            sortKey = prefs.getString("BM_SORT_KEY", BookmarkDBAdapter.KEY_VOLUME);
 		            isDesc = prefs.getBoolean("BM_IS_DESC", false);
 		            bookmarkDBAdapter.open();
-					Cursor c = bookmarkDBAdapter.getEntries(language, keywords, sortKey, isDesc);
+		            Cursor c;
+		            if(keywords.length() == 0) {
+		            	c = bookmarkDBAdapter.getEntries(language, sortKey, isDesc);
+		            } else {
+		            	c = bookmarkDBAdapter.getEntries(language, keywords, sortKey, isDesc);
+		            }
 					if(c.moveToPosition(position)) {
 						long rowIndex = c.getInt(BookmarkDBAdapter.ID_COL);
 						BookmarkItem bmItem = bookmarkDBAdapter.getEntry(rowIndex);
@@ -399,19 +471,22 @@ public class BookmarkPaliActivity extends Activity {
 		        sortKey = prefs.getString("BM_SORT_KEY", BookmarkDBAdapter.KEY_VOLUME);
 		        isDesc = prefs.getBoolean("BM_IS_DESC", false);
 				bookmarkDBAdapter.open();
-				Cursor c = bookmarkDBAdapter.getEntries(language, keywords, sortKey, isDesc);
+				Cursor c;
+				if(keywords.length() == 0) {
+					c = bookmarkDBAdapter.getEntries(language, sortKey, isDesc);
+				} else {
+					c = bookmarkDBAdapter.getEntries(language, keywords, sortKey, isDesc);
+				}
+				
 				if(c.moveToPosition(position)) {
 					int rowIndex = c.getInt(BookmarkDBAdapter.ID_COL);
-					
 					int page = c.getInt(BookmarkDBAdapter.VOLUME_COL);
 					int volumn = c.getInt(BookmarkDBAdapter.PAGE_COL);
 					
 					// save information in order to return to SearchActivity
 					removedItems.add(page+":"+volumn);
-					
 					bookmarkDBAdapter.removeEntry(rowIndex);
 					updateItemList();
-					
 				}
 				c.close();
 				bookmarkDBAdapter.close();

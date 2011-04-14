@@ -466,12 +466,13 @@ public class SearchDialog extends Dialog {
 				
 				final CharSequence[] items = {
 								String.format(context.getString(R.string.recall_data) + " " + context.getString(R.string.freq_format), 
-										Utils.arabic2thai(item.getFrequency()+"", context.getResources())), 
+										Utils.arabic2thai(item.getFrequency()+"", context.getResources())),
+								context.getString(R.string.delete),
 								context.getString(R.string.assign_priority),
 								context.getString(R.string.move_up),
 								context.getString(R.string.move_down),
-								context.getString(R.string.recompute_priority),
-								context.getString(R.string.delete)};
+								context.getString(R.string.recompute_priority)};
+
 				builder.setItems(items, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -479,20 +480,20 @@ public class SearchDialog extends Dialog {
 							case 0: // recall data
 								recallItemAt(position);
 								break;
-							case 1: // assign
+							case 1: // delete
+								deleteItemAt(position);
+								break;
+							case 2: // assign
 								assignPriorityAt(position);
 								break;
-							case 2: // move up
+							case 3: // move up
 								moveItemUp(position);
 								break;
-							case 3: // move down
+							case 4: // move down
 								moveItemDown(position);
 								break;
-							case 4: // recompute
+							case 5: // recompute
 								recomputePriority();
-								break;
-							case 5: // delete
-								deleteItemAt(position);
 								break;
 						}
 						
@@ -520,7 +521,7 @@ public class SearchDialog extends Dialog {
 				
 				final CharSequence[] items = {
 								String.format(context.getString(R.string.recall_data) + " " + context.getString(R.string.freq_format), 
-										Utils.arabic2thai(item.getFrequency()+"", context.getResources())), 
+										Utils.arabic2thai(item.getFrequency()+"", context.getResources())),
 								context.getString(R.string.delete)};
 				builder.setItems(items, new DialogInterface.OnClickListener() {
 					@Override
