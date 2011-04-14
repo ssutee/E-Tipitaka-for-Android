@@ -3,19 +3,43 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="fill_parent"
   android:layout_height="wrap_content">
+  	<RelativeLayout android:id="@+id/top_layout"
+		android:layout_alignParentTop="true"  		
+  		android:orientation="horizontal"  		
+  		android:layout_width="fill_parent"
+  		android:layout_height="wrap_content">
+    	<ImageView
+    		android:id="@+id/star_mark"
+    		android:layout_width="wrap_content"
+    		android:layout_height="fill_parent"
+    		android:layout_alignParentRight="true"
+    		android:layout_centerVertical="true"
+    		android:layout_alignParentTop="true"
+    		android:layout_alignParentBottom="true"
+    		android:src="@drawable/star_big_on"
+    	/>		  	
 	     <TextView android:id="@+id/line1"
 	         android:textSize="12sp"
 	         android:textStyle="bold"
 	         android:layout_width="fill_parent"
 	         android:layout_height="wrap_content"
-	         android:layout_alignParentTop="true"
+			 android:layout_toLeftOf="@id/star_mark"	         
 	         android:paddingTop="5dp"
 	         />
-	     <TextView android:id="@+id/line2"
-	         android:textSize="12sp"
+  	</RelativeLayout>  		
+     <TextView android:id="@+id/line2"
+         android:textSize="12sp"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:layout_below="@id/top_layout"
+         android:paddingBottom="5dp"
+         />
+<!-- 	         
+	  	<CheckBox android:id="@+id/mark_star"
+	  		android:layout_below="@id/line2"
+	  		style="?android:attr/starStyle"	  		
 	         android:layout_width="fill_parent"
-	         android:layout_height="wrap_content"
-	         android:layout_below="@id/line1"
-	         android:paddingBottom="5dp"
-	         />
+	         android:layout_height="wrap_content"	  		
+	  	/>
+ -->	  	
 </RelativeLayout>

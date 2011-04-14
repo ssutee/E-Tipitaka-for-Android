@@ -15,7 +15,7 @@ import android.util.Log;
 public class SearchResultsDBAdapter {
 	private static final String DATABASE_NAME = "results.db";
 	private static final String DATABASE_TABLE = "results";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 4;
 	
 	public static final String KEY_ID = "_id";
 	public static final int ID_COL = 0;
@@ -46,6 +46,9 @@ public class SearchResultsDBAdapter {
 	
 	public static final String KEY_SAVED = "saved";
 	public static final int SAVED_COL = 9;
+	
+	public static final String KEY_MARKED = "marked";
+	public static final int MARKED_COL = 10;
 
 	
 	private SQLiteDatabase db;
@@ -63,7 +66,8 @@ public class SearchResultsDBAdapter {
 		KEY_CONTENT + " text not null, " +
 		KEY_PRIMARY_CLICKED + " text not null, " +		
 		KEY_SECONDARY_CLICKED + " text not null, " + 
-		KEY_SAVED + " text not null);";		
+		KEY_SAVED + " text not null, " +
+		KEY_MARKED + " text not null);";		
 	
 	public SearchResultsDBAdapter(Context _context) {
 		context = _context;
@@ -86,10 +90,9 @@ public class SearchResultsDBAdapter {
 				KEY_SEL_CATE, item.getSelectedCategories(),
 				KEY_SUTS, item.getSuts());
 		
-		
 		int count = db.query(DATABASE_TABLE, 
 				new String[] {KEY_ID, KEY_LANG, KEY_KEYWORDS, KEY_PAGES, KEY_SUTS, KEY_SEL_CATE, KEY_CONTENT, 
-					KEY_PRIMARY_CLICKED, KEY_SECONDARY_CLICKED, KEY_SAVED}, 
+					KEY_PRIMARY_CLICKED, KEY_SECONDARY_CLICKED, KEY_SAVED, KEY_MARKED}, 
 				where, null, null, null, null).getCount();
 		
 		if(count > 0) {
@@ -102,7 +105,7 @@ public class SearchResultsDBAdapter {
 	public SearchResultsItem getEntry(long _rowIndex) {
 		Cursor cursor = db.query(true, DATABASE_TABLE, 
 				new String[] {KEY_ID, KEY_LANG, KEY_KEYWORDS, KEY_PAGES, KEY_SUTS, KEY_SEL_CATE, KEY_CONTENT, 
-					KEY_PRIMARY_CLICKED, KEY_SECONDARY_CLICKED, KEY_SAVED}, 
+					KEY_PRIMARY_CLICKED, KEY_SECONDARY_CLICKED, KEY_SAVED, KEY_MARKED}, 
 				KEY_ID + "=" + _rowIndex, 
 				null, null, null, null, null);		
 		
@@ -119,11 +122,13 @@ public class SearchResultsDBAdapter {
 		String pClicked = cursor.getString(PRIMARY_CLIKCED_COL);
 		String sClicked = cursor.getString(SECONDARY_CLIKCED_COL);
 		String saved = cursor.getString(SAVED_COL);
+		String marked = cursor.getString(MARKED_COL);
 		
 		SearchResultsItem result = new SearchResultsItem(lang, keywords, pages, suts, sCate, content);
 		result.setPrimaryClicked(pClicked);
 		result.setSecondaryClicked(sClicked);
 		result.setSaved(saved);
+		result.setMarked(marked);
 		
 		return result;
 	}
@@ -131,7 +136,7 @@ public class SearchResultsDBAdapter {
 	public Cursor getAllEntries() {
 		return db.query(DATABASE_TABLE, 
 				new String[] {KEY_ID, KEY_LANG, KEY_KEYWORDS, KEY_PAGES, KEY_SUTS, KEY_SEL_CATE, KEY_CONTENT, 
-					KEY_PRIMARY_CLICKED, KEY_SECONDARY_CLICKED, KEY_SAVED}, 
+					KEY_PRIMARY_CLICKED, KEY_SECONDARY_CLICKED, KEY_SAVED, KEY_MARKED}, 
 				null, null, null, null, null);		
 	}
 	
@@ -141,7 +146,7 @@ public class SearchResultsDBAdapter {
 			" AND " + KEY_SEL_CATE + "=" + "'" + sCate + "'";
 		return db.query(DATABASE_TABLE, 
 				new String[] {KEY_ID, KEY_LANG, KEY_KEYWORDS, KEY_PAGES, KEY_SUTS, KEY_SEL_CATE, KEY_CONTENT, 
-					KEY_PRIMARY_CLICKED, KEY_SECONDARY_CLICKED, KEY_SAVED}, 
+					KEY_PRIMARY_CLICKED, KEY_SECONDARY_CLICKED, KEY_SAVED, KEY_MARKED}, 
 				where, null, null, null, null);		
 	}
 	
@@ -173,6 +178,7 @@ public class SearchResultsDBAdapter {
 		newValues.put(KEY_PRIMARY_CLICKED, item.getPrimaryClicked());
 		newValues.put(KEY_SECONDARY_CLICKED, item.getSecondaryClicked());
 		newValues.put(KEY_SAVED, item.getSaved());
+		newValues.put(KEY_MARKED, item.getMarked());
 		
 		String where = KEY_ID + " = " + _rowIndex;
 		
@@ -190,6 +196,7 @@ public class SearchResultsDBAdapter {
 		newValues.put(KEY_PRIMARY_CLICKED, item.getPrimaryClicked());
 		newValues.put(KEY_SECONDARY_CLICKED, item.getSecondaryClicked());
 		newValues.put(KEY_SAVED, item.getSaved());
+		newValues.put(KEY_MARKED, item.getMarked());
 		
 		return db.insert(DATABASE_TABLE, null, newValues);		
 	}
@@ -233,6 +240,44 @@ public class SearchResultsDBAdapter {
 						newValues.put(KEY_PRIMARY_CLICKED, cursor.getString(PRIMARY_CLIKCED_COL));
 						newValues.put(KEY_SECONDARY_CLICKED, cursor.getString(SECONDARY_CLIKCED_COL));
 						newValues.put(KEY_SAVED, emtryListString);
+						newValues.put(KEY_MARKED, emtryListString);
+						
+						tmp.add(newValues);
+						cursor.moveToNext();
+					}
+				}
+				db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
+				onCreate(db);	
+				for(ContentValues values : tmp) {
+					db.insert(DATABASE_TABLE, null, values);
+				}
+			}
+			else if(oldVersion == 2 || oldVersion == 3) {
+				ArrayList<ContentValues> tmp = new ArrayList<ContentValues>();
+				Cursor cursor = db.query(DATABASE_TABLE, 
+						new String[] {KEY_ID, KEY_LANG, KEY_KEYWORDS, KEY_PAGES, KEY_SUTS, KEY_SEL_CATE, KEY_CONTENT, 
+							KEY_PRIMARY_CLICKED, KEY_SECONDARY_CLICKED, KEY_SAVED}, 
+						null, null, null, null, null);		
+				if(cursor.getCount() > 0 && cursor.moveToFirst()) {
+					ContentValues newValues;
+					String emtryListString = "";
+					try {
+						emtryListString = Utils.toStringBase64(new ArrayList<String>());
+					} catch(IOException e) {
+						e.printStackTrace();
+					}					
+					while(!cursor.isAfterLast()) {
+						newValues = new ContentValues();
+						newValues.put(KEY_LANG, cursor.getString(LANG_COL));
+						newValues.put(KEY_KEYWORDS, cursor.getString(KEYWORDS_COL));
+						newValues.put(KEY_PAGES, cursor.getString(PAGES_COL));
+						newValues.put(KEY_SUTS, cursor.getString(SUTS_COL));
+						newValues.put(KEY_SEL_CATE, cursor.getString(SEL_CATE_COL));
+						newValues.put(KEY_CONTENT, cursor.getString(CONTENT_COL));
+						newValues.put(KEY_PRIMARY_CLICKED, cursor.getString(PRIMARY_CLIKCED_COL));
+						newValues.put(KEY_SECONDARY_CLICKED, cursor.getString(SECONDARY_CLIKCED_COL));
+						newValues.put(KEY_SAVED, cursor.getString(SAVED_COL));
+						newValues.put(KEY_MARKED, emtryListString);
 						
 						tmp.add(newValues);
 						cursor.moveToNext();

@@ -26,7 +26,6 @@ public class SearchHistoryItem {
 		freq = 0;
 		priority = "0";
 		code = "A";
-		
 	}	
 
 	public SearchHistoryItem(String _lang, String _keywords, int _nPage, int _nSut, String _sCate, 
@@ -40,7 +39,7 @@ public class SearchHistoryItem {
 		line2 = _line2;
 		freq = _freq;
 		priority = "0";
-		code = "A";
+		code = "A";		
 	}	
 	
 	public SearchHistoryItem(String _lang, String _keywords, int _nPage, int _nSut, String _sCate, 
@@ -54,7 +53,7 @@ public class SearchHistoryItem {
 		line2 = _line2;
 		freq = _freq;
 		priority = _priority;
-		code = "A";
+		code = "A";		
 	}	
 
 	public SearchHistoryItem(String _lang, String _keywords, int _nPage, int _nSut, String _sCate, 

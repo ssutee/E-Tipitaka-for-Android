@@ -708,6 +708,7 @@ public class SearchDialog extends Dialog {
 		String pClicked = "";
 		String sClicked = "";
 		String saved = "";
+		String marked = "";
 		
 		// retrieve the result from DB
 		if(cursor.getCount() > 0 && cursor.moveToFirst()) {
@@ -715,6 +716,7 @@ public class SearchDialog extends Dialog {
 			pClicked = cursor.getString(SearchResultsDBAdapter.PRIMARY_CLIKCED_COL);
 			sClicked = cursor.getString(SearchResultsDBAdapter.SECONDARY_CLIKCED_COL);
 			saved = cursor.getString(SearchResultsDBAdapter.SAVED_COL);
+			marked = cursor.getString(SearchResultsDBAdapter.MARKED_COL);
 		}
 		
 		// send the result to SearchActivity 
@@ -734,6 +736,7 @@ public class SearchDialog extends Dialog {
     		dataBundle.putString("PCLICKED", pClicked);
     		dataBundle.putString("SCLICKED", sClicked);
     		dataBundle.putString("SAVED", saved);
+    		dataBundle.putString("MARKED", marked);
     		dataBundle.putString("SCATE", sCate);
     		
     		intent.putExtras(dataBundle);

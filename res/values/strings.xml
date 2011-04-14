@@ -143,4 +143,5 @@
 	<string name="note_top">ลำดับอักษรคำบันทึก</string>
 	<string name="volume_page">เลขเล่ม-หน้า</string>
 	<string name="sorting">เรียงลำดับ</string>
+	<string name="marked">ติด/ลบ ดาว</string>
 </resources>

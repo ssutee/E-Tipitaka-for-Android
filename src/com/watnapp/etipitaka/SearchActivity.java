@@ -32,7 +32,9 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -92,13 +94,16 @@ public class SearchActivity extends Activity {
 		private ArrayList<Integer> checkClicked = new ArrayList<Integer>();
 		private ArrayList<Integer> checkSecondaryClicked = new ArrayList<Integer>();
 		private ArrayList<Integer> checkSaved = new ArrayList<Integer>();
+		private ArrayList<Integer> checkMarked = new ArrayList<Integer>();
 		private int posVinai = Integer.MAX_VALUE;
 		private int posSuttan = Integer.MAX_VALUE;
 		private int posAbhidhum = Integer.MAX_VALUE;
+		private Context context;
 		
 		public SpecialCursorAdapter(Context context, int layout, Cursor c,
 				String[] from, int[] to) {
 			super(context, layout, c, from, to);
+			this.context = context;
 		}
 		
 		@Override
@@ -111,20 +116,40 @@ public class SearchActivity extends Activity {
 			TextView line2 = (TextView)view.findViewById(R.id.line2);
 			line2.setTextSize(prefs.getFloat("Line2Size", 12f));
 			
+			ImageView star = (ImageView)view.findViewById(R.id.star_mark);
+			
+			if(checkMarked.contains(position)) {
+				//star.setImageDrawable(context.getResources().getDrawable(R.drawable.star_big_on));
+				star.setVisibility(View.VISIBLE);
+			} else {
+				star.setVisibility(View.INVISIBLE);
+				//star.setImageDrawable(context.getResources().getDrawable(R.drawable.star_big_off));
+			}
+			
+			RelativeLayout topLayout = (RelativeLayout)view.findViewById(R.id.top_layout);
+						
 			if(checkClicked.contains(position)) {
 				line1.setBackgroundColor(Color.rgb(90, 90, 90));
-				line2.setBackgroundColor(Color.rgb(90, 90, 90));				
+				line2.setBackgroundColor(Color.rgb(90, 90, 90));
+				star.setBackgroundColor(Color.rgb(90, 90, 90));
+				topLayout.setBackgroundColor(Color.rgb(90, 90, 90));
 			} else if(checkSecondaryClicked.contains(position)) {
 				line1.setBackgroundColor(Color.rgb(45, 45, 45));
 				line2.setBackgroundColor(Color.rgb(45, 45, 45));
+				star.setBackgroundColor(Color.rgb(45, 45, 45));
+				topLayout.setBackgroundColor(Color.rgb(45, 45, 45));				
 			} else {
 				line1.setBackgroundColor(Color.BLACK);
 				line2.setBackgroundColor(Color.BLACK);
+				star.setBackgroundColor(Color.BLACK);
+				topLayout.setBackgroundColor(Color.BLACK);				
 			}
 
 			if(checkSaved.contains(position)) {
 				line1.setBackgroundColor(Color.rgb(25, 25, 90));
-				line2.setBackgroundColor(Color.rgb(25, 25, 90));				
+				line2.setBackgroundColor(Color.rgb(25, 25, 90));
+				star.setBackgroundColor(Color.rgb(25, 25, 90));
+				topLayout.setBackgroundColor(Color.rgb(25, 25, 90));
 			}
 			
 			if(position >= posVinai && position < posSuttan && position < posAbhidhum) {				
@@ -139,6 +164,13 @@ public class SearchActivity extends Activity {
 			}
 
 			return view;			
+		}
+
+		public void addMarkedPosition(Integer position) {
+			if(!checkMarked.contains(position)) {
+				checkMarked.add(position);
+				this.notifyDataSetChanged();
+			}
 		}
 		
 		public void addClickedPosition(Integer position) {
@@ -174,6 +206,10 @@ public class SearchActivity extends Activity {
 			return checkSaved;
 		}
 		
+		public ArrayList<Integer> getMarked() {
+			return checkMarked;
+		}
+		
 		public void setPrimaryClicked(ArrayList<Integer> al) {
 			checkClicked = al;
 			this.notifyDataSetChanged();
@@ -189,9 +225,23 @@ public class SearchActivity extends Activity {
 			this.notifyDataSetChanged();
 		}
 		
+		public void setMarked(ArrayList<Integer> al) {
+			checkMarked = al;
+			this.notifyDataSetChanged();
+		}
+		
+		public boolean isMarked(Integer position) {
+			return checkMarked.contains(position);
+		}
+		
 		public void clearClickedPosition(Integer position) {
 			checkClicked.remove(position);
 			checkSecondaryClicked.remove(position);
+			this.notifyDataSetChanged();
+		}
+		
+		public void clearMarkedPosition(Integer position) {
+			checkMarked.remove(position);
 			this.notifyDataSetChanged();
 		}
 		
@@ -230,7 +280,7 @@ public class SearchActivity extends Activity {
 	}
 	*/
 	
-	private void showResults(ArrayList<String> _resultList, boolean isSaved, String keywords, ArrayList<Integer> pList, ArrayList<Integer> sList, ArrayList<Integer> savedList) {
+	private void showResults(ArrayList<String> _resultList, boolean isSaved, String keywords, ArrayList<Integer> pList, ArrayList<Integer> sList, ArrayList<Integer> savedList, ArrayList<Integer> markedList) {
         savedCursor = convertToCursor(_resultList);
         adapter = new SpecialCursorAdapter(SearchActivity.this, R.layout.result_item, savedCursor,
         		new String[] {"line1", "line2"},
@@ -245,6 +295,10 @@ public class SearchActivity extends Activity {
    
         if(savedList != null) {
         	adapter.setSaved(savedList);
+        }
+        
+        if(markedList != null) {
+        	adapter.setMarked(markedList);
         }
         
         adapter.setVinaiPosition(firstPosVinai);
@@ -312,6 +366,7 @@ public class SearchActivity extends Activity {
 	        	String pClicked = Utils.toStringBase64(adapter.getPrimaryClicked());
 	        	String sClicked = Utils.toStringBase64(adapter.getSecondaryClicked());
 	        	String saved = Utils.toStringBase64(adapter.getSaved());
+	        	String marked = Utils.toStringBase64(adapter.getMarked());
 	        	
 		        SearchResultsItem item2 = new SearchResultsItem(lang, keywords, 
 		        		pVinai+":"+pSuttan+":"+pAbhidhum,
@@ -320,6 +375,7 @@ public class SearchActivity extends Activity {
 			        item2.setPrimaryClicked(pClicked);
 			        item2.setSecondaryClicked(sClicked);
 			        item2.setSaved(saved);
+			        item2.setMarked(marked);
 		        	savedResultsItemPosition = searchResultsDBAdapter.insertEntry(item2);
 		        	//Toast.makeText(this, "SAVE"+":"+savedResultsItemPosition, Toast.LENGTH_SHORT).show();
 		        } else {
@@ -329,15 +385,18 @@ public class SearchActivity extends Activity {
 		        		pClicked = cursor.getString(SearchResultsDBAdapter.PRIMARY_CLIKCED_COL);
 		        		sClicked = cursor.getString(SearchResultsDBAdapter.SECONDARY_CLIKCED_COL);
 		        		saved = cursor.getString(SearchResultsDBAdapter.SAVED_COL);
+		        		marked = cursor.getString(SearchResultsDBAdapter.MARKED_COL);
 		        		
 				        item2.setPrimaryClicked(pClicked);
 				        item2.setSecondaryClicked(sClicked);
 				        item2.setSaved(saved);
+				        item2.setMarked(marked);
 				        
 		        		try {
 		        			adapter.setPrimaryClicked((ArrayList<Integer>)Utils.fromStringBase64(pClicked));
 		        			adapter.setSecondaryClicked((ArrayList<Integer>)Utils.fromStringBase64(sClicked));
 		        			adapter.setSaved((ArrayList<Integer>)Utils.fromStringBase64(saved));
+		        			adapter.setMarked((ArrayList<Integer>)Utils.fromStringBase64(marked));
 		        		} catch(IOException e) {
 		        			e.printStackTrace();
 		        		} catch(ClassNotFoundException e) {
@@ -385,7 +444,7 @@ public class SearchActivity extends Activity {
     		pdialog.setMessage(getString(R.string.th_found)+" "+Integer.toString(resultList.size())+" "+getString(R.string.th_page));
     		if(pdialog.getProgress() == pdialog.getMax()) {
     			pdialog.dismiss();
-    			showResults(resultList, true, savedQuery, null, null, null);
+    			showResults(resultList, true, savedQuery, null, null, null, null);
     		}
     	}
     };
@@ -730,7 +789,7 @@ public class SearchActivity extends Activity {
         line1Size = prefs.getFloat("Line1Size", 12f);        
         line2Size = prefs.getFloat("Line2Size", 12f);
 	}
-	
+	/*
 	private void updateClickedStatusData(long position, SearchResultsItem item) {
 		try {
 			String pClicked = Utils.toStringBase64(adapter.getPrimaryClicked());
@@ -744,6 +803,26 @@ public class SearchActivity extends Activity {
 			e.printStackTrace();
 		}		
 	}
+	*/
+
+	public void toggleStar(int _position) {
+		if(adapter.isMarked(_position)) {
+			adapter.clearMarkedPosition(_position);
+		} else {
+			adapter.addMarkedPosition(_position);
+		}
+		
+		ArrayList<Integer> newMarked = adapter.getMarked();		
+		
+		try {
+			savedResultsItem.setMarked(Utils.toStringBase64(newMarked));
+			searchResultsDBAdapter.open();
+			searchResultsDBAdapter.updateEntry(savedResultsItemPosition, savedResultsItem);
+			searchResultsDBAdapter.close();			
+		} catch(IOException e) {
+			e.printStackTrace();
+		}		
+	}	
 	
 	private void memoAt(int _volume, int _item, int _page, String _language, String _keywords, int _position) {
 		final Dialog memoDialog = new Dialog(SearchActivity.this);
@@ -826,7 +905,7 @@ public class SearchActivity extends Activity {
         statusText.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(SearchActivity.this, "OK", Toast.LENGTH_SHORT).show();
+				//Toast.makeText(SearchActivity.this, "OK", Toast.LENGTH_SHORT).show();
 			}
 		});
         
@@ -841,6 +920,29 @@ public class SearchActivity extends Activity {
 			}
 		});
         
+        TextView vinaiLabel2 = (TextView) findViewById(R.id.npage1);
+        vinaiLabel2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(firstPosVinai != Integer.MAX_VALUE) {
+					resultView.setSelected(true);
+					resultView.setSelection(firstPosVinai);
+				}
+			}
+		});
+
+        TextView vinaiLabel3 = (TextView) findViewById(R.id.nsutt1);
+        vinaiLabel3.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(firstPosVinai != Integer.MAX_VALUE) {
+					resultView.setSelected(true);
+					resultView.setSelection(firstPosVinai);
+				}
+			}
+		});
+        
+        
         TextView suttanLabel = (TextView) findViewById(R.id.suttan_label);
         suttanLabel.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -851,7 +953,30 @@ public class SearchActivity extends Activity {
 				}
 			}
 		});
+        
+        TextView suttanLabel2 = (TextView) findViewById(R.id.npage2);
+        suttanLabel2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(firstPosSuttan != Integer.MAX_VALUE) {
+					resultView.setSelected(true);
+					resultView.setSelection(firstPosSuttan);
+				}
+			}
+		});
 
+        TextView suttanLabel3 = (TextView) findViewById(R.id.nsutt2);
+        suttanLabel3.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(firstPosSuttan != Integer.MAX_VALUE) {
+					resultView.setSelected(true);
+					resultView.setSelection(firstPosSuttan);
+				}
+			}
+		});
+        
+        
         TextView abhidumLabel = (TextView) findViewById(R.id.abhidum_label);
         abhidumLabel.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -862,7 +987,28 @@ public class SearchActivity extends Activity {
 				}
 			}
 		});
-        
+
+        TextView abhidumLabel2 = (TextView) findViewById(R.id.npage3);
+        abhidumLabel2.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(firstPosAbhidhum != Integer.MAX_VALUE) {
+					resultView.setSelected(true);
+					resultView.setSelection(firstPosAbhidhum);
+				}
+			}
+		});
+
+        TextView abhidumLabel3 = (TextView) findViewById(R.id.nsutt3);
+        abhidumLabel3.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(firstPosAbhidhum != Integer.MAX_VALUE) {
+					resultView.setSelected(true);
+					resultView.setSelection(firstPosAbhidhum);
+				}
+			}
+		});        
         
         searchText = (TextView) findViewById(R.id.search_word);
         resultView = (ListView) findViewById(R.id.result_list);
@@ -877,7 +1023,10 @@ public class SearchActivity extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
-				final CharSequence[] items = {getString(R.string.unread), getString(R.string.unread_all), getString(R.string.memo)};
+				final CharSequence[] items = {getString(R.string.unread), 
+						getString(R.string.unread_all), 
+						getString(R.string.memo),
+						getString(R.string.marked)};
 				final Integer position = new Integer(arg2);
 				builder.setItems(items, new DialogInterface.OnClickListener() {
 					@Override
@@ -912,6 +1061,9 @@ public class SearchActivity extends Activity {
 								String [] tokens = resultList.get(position).split(":");
 								String firstItem = tokens[3].split("\\s+")[0];
 								memoAt(Integer.parseInt(tokens[1]),Integer.parseInt(firstItem),Integer.parseInt(tokens[2]),lang,savedQuery,position);
+								break;
+							case 3:
+								toggleStar(position);
 								break;
 						}
 					}
@@ -1016,6 +1168,7 @@ public class SearchActivity extends Activity {
 			String pClicked = dataBundle.getString("PCLICKED");
 			String sClicked = dataBundle.getString("SCLICKED");
 			String saved = dataBundle.getString("SAVED");
+			String marked = dataBundle.getString("MARKED");
 			String sCate = dataBundle.getString("SCATE");
 						
 			savedQuery = dataBundle.getString("QUERY");
@@ -1037,7 +1190,8 @@ public class SearchActivity extends Activity {
 	        	ArrayList<Integer> pClickedList = (ArrayList<Integer>)Utils.fromStringBase64(pClicked);
 	        	ArrayList<Integer> sClickedList = (ArrayList<Integer>)Utils.fromStringBase64(sClicked);
 	        	ArrayList<Integer> savedList = (ArrayList<Integer>)Utils.fromStringBase64(saved);
-				showResults(resultList, false, savedQuery, pClickedList, sClickedList, savedList);
+	        	ArrayList<Integer> markedList = (ArrayList<Integer>)Utils.fromStringBase64(marked);
+				showResults(resultList, false, savedQuery, pClickedList, sClickedList, savedList, markedList);
 	        } catch (IOException e) {
 	        	e.printStackTrace();
 	        } catch (ClassNotFoundException e) {

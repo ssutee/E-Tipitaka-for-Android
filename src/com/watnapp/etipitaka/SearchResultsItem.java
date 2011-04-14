@@ -10,6 +10,7 @@ public class SearchResultsItem {
 	private String pClicked;
 	private String sClicked;
 	private String saved;
+	private String marked;	
 
 	public SearchResultsItem(String _lang, String _keywords, String _pages, String _suts, String _sCate, String _content) {
 		lang = _lang;
@@ -21,6 +22,7 @@ public class SearchResultsItem {
 		pClicked = null;
 		sClicked = null;
 		saved = null;
+		marked = null;
 	}
 	
 	public String getLanguage() {
@@ -59,6 +61,10 @@ public class SearchResultsItem {
 		return saved;
 	}
 	
+	public String getMarked() {
+		return marked;
+	}
+	
 	public void setLangauge(String _lang) {
 		lang = _lang;
 	}
@@ -93,5 +99,9 @@ public class SearchResultsItem {
 	
 	public void setSaved(String _saved) {
 		saved = _saved;
+	}
+	
+	public void setMarked(String _marked) {
+		marked = _marked;
 	}
 }
