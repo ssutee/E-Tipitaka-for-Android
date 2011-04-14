@@ -1023,11 +1023,20 @@ public class SearchActivity extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);
+				
+				String starLabel;
+				final Integer position = new Integer(arg2);
+				if (adapter.isMarked(position)) {
+					starLabel = getString(R.string.unmarked);
+				} else {
+					starLabel = getString(R.string.marked);
+				}
+				
 				final CharSequence[] items = {getString(R.string.unread), 
 						getString(R.string.unread_all), 
 						getString(R.string.memo),
-						getString(R.string.marked)};
-				final Integer position = new Integer(arg2);
+						starLabel};
+				
 				builder.setItems(items, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
