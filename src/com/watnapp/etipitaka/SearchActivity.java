@@ -251,8 +251,8 @@ public class SearchActivity extends Activity {
 			this.notifyDataSetChanged();
 		}
 		
-		public void clearSavedPosition() {
-			checkSaved.clear();
+		public void clearSavedPosition(Integer position) {
+			checkSaved.remove(position);
 			this.notifyDataSetChanged();
 		}
 		
@@ -789,13 +789,17 @@ public class SearchActivity extends Activity {
         line1Size = prefs.getFloat("Line1Size", 12f);        
         line2Size = prefs.getFloat("Line2Size", 12f);
 	}
-	/*
+	
+	
 	private void updateClickedStatusData(long position, SearchResultsItem item) {
 		try {
 			String pClicked = Utils.toStringBase64(adapter.getPrimaryClicked());
 			String sClicked = Utils.toStringBase64(adapter.getPrimaryClicked());
+			String mClicked = Utils.toStringBase64(adapter.getSaved());
 			item.setPrimaryClicked(pClicked);
 			item.setSecondaryClicked(sClicked);
+			item.setSaved(mClicked);
+
 			searchResultsDBAdapter.open();
 			searchResultsDBAdapter.updateEntry(position, item);
 			searchResultsDBAdapter.close();
@@ -803,7 +807,7 @@ public class SearchActivity extends Activity {
 			e.printStackTrace();
 		}		
 	}
-	*/
+	
 
 	public void toggleStar(int _position) {
 		if(adapter.isMarked(_position)) {
@@ -822,7 +826,20 @@ public class SearchActivity extends Activity {
 		} catch(IOException e) {
 			e.printStackTrace();
 		}		
-	}	
+	}
+	
+	private void deleteMemoAt(String _language, int _volume, int _page, String _keywords, int _position) {
+		bookmarkDBAdapter.open();
+		Cursor c = bookmarkDBAdapter.getEntries(lang, _volume, _page, _keywords);
+		c.moveToFirst();
+		while(!c.isAfterLast()) {
+			bookmarkDBAdapter.removeEntry(c.getInt(0));
+			c.moveToNext();
+		}
+		bookmarkDBAdapter.close();
+		adapter.clearSavedPosition(_position);
+		updateClickedStatusData(savedResultsItemPosition, savedResultsItem);		
+	}
 	
 	private void memoAt(int _volume, int _item, int _page, String _language, String _keywords, int _position) {
 		final Dialog memoDialog = new Dialog(SearchActivity.this);
@@ -1032,21 +1049,28 @@ public class SearchActivity extends Activity {
 					starLabel = getString(R.string.marked);
 				}
 				
-				final CharSequence[] items = {getString(R.string.unread), 
+				final CharSequence[] items = {
+						getString(R.string.unread), 
 						getString(R.string.unread_all), 
 						getString(R.string.memo),
+						getString(R.string.delete_memo),
 						starLabel};
 				
 				builder.setItems(items, new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						String [] tokens = resultList.get(position).split(":");
+						final int volume = Integer.parseInt(tokens[1]);
+						final int page = Integer.parseInt(tokens[2]);
+						final int item = Integer.parseInt(tokens[3].split("\\s+")[0]);
+						AlertDialog.Builder builder;
 						switch(which) {
 							case 0: // unread
 								adapter.clearClickedPosition(position);
-								//updateClickedStatusData(savedResultsItemPosition, savedResultsItem);
+								updateClickedStatusData(savedResultsItemPosition, savedResultsItem);
 								break;
 							case 1: // unread all
-								AlertDialog.Builder builder = new AlertDialog.Builder(SearchActivity.this);   
+								builder = new AlertDialog.Builder(SearchActivity.this);   
 								builder.setTitle(getString(R.string.unread_all_items));
 								builder.setIcon(android.R.drawable.ic_dialog_alert);
 								builder.setMessage(getString(R.string.confirm_unread_all_items));
@@ -1054,7 +1078,7 @@ public class SearchActivity extends Activity {
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
 										adapter.clearClickedPosition();
-										//updateClickedStatusData(savedResultsItemPosition, savedResultsItem);
+										updateClickedStatusData(savedResultsItemPosition, savedResultsItem);
 									}
 								});
 								builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
@@ -1067,11 +1091,43 @@ public class SearchActivity extends Activity {
 								break;
 							case 2: // memo
 								//Toast.makeText(SearchActivity.this, resultList.get(position), Toast.LENGTH_SHORT).show();
-								String [] tokens = resultList.get(position).split(":");
-								String firstItem = tokens[3].split("\\s+")[0];
-								memoAt(Integer.parseInt(tokens[1]),Integer.parseInt(firstItem),Integer.parseInt(tokens[2]),lang,savedQuery,position);
+								memoAt(volume, item, page ,lang, savedQuery, position);
 								break;
-							case 3:
+							case 3: // delete memo
+								bookmarkDBAdapter.open();
+								int memoCount = bookmarkDBAdapter.getEntries(lang, volume, page, savedQuery).getCount();
+								bookmarkDBAdapter.close();
+								if (memoCount > 0) {
+									builder = new AlertDialog.Builder(SearchActivity.this);   
+									builder.setTitle(getString(R.string.delete_memo));
+									builder.setIcon(android.R.drawable.ic_dialog_alert);
+									builder.setMessage(getString(R.string.confirm_delete_memo));
+									builder.setPositiveButton(getString(R.string.yes), 
+											new DialogInterface.OnClickListener() {									
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											deleteMemoAt(lang, volume, page, savedQuery, position);
+											Toast.makeText(SearchActivity.this, R.string.deleted_memo, 
+													Toast.LENGTH_SHORT).show();
+										}
+									});
+									builder.setNegativeButton(getString(R.string.no), 
+											new DialogInterface.OnClickListener() {
+										@Override
+										public void onClick(DialogInterface dialog, int which) {
+											return;
+										}
+									});
+									builder.show();
+									
+								} else {
+									adapter.clearSavedPosition(position);
+									updateClickedStatusData(savedResultsItemPosition, savedResultsItem);										
+									Toast.makeText(SearchActivity.this, 
+											R.string.memo_not_found, Toast.LENGTH_SHORT).show();
+								}
+								break;
+							case 4:
 								toggleStar(position);
 								break;
 						}

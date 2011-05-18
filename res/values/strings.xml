@@ -59,6 +59,7 @@
 	<string name="no">ไม่</string>
 	<string name="confirm_clear_history">คุณแน่ใจหรือไม่ที่จะลบประวัติการค้นหาทั้งหมด?</string>
 	<string name="memo">จดจำ</string>
+	<string name="delete_memo">ลบรายการจดจำ</string>
 	<string name="enter_note">ใส่ข้อความที่ต้องการจดบันทึกเพิ่มเติม</string>
 	<string name="save">บันทึก</string>
 	<string name="bookmark">ดูรายการจดจำ</string>
@@ -145,4 +146,7 @@
 	<string name="sorting">เรียงลำดับ</string>
 	<string name="marked">ติดดาว</string>
 	<string name="unmarked">ลบดาว</string>	
+	<string name="confirm_delete_memo">คุณแน่ใจหรือไม่ ที่จะลบการจดจำทั้งหมดสำหรับผลการค้นหานี้?</string>
+	<string name="deleted_memo">รายการจดจำถูกลบแล้ว</string>
+	<string name="memo_not_found">ไม่พบรายการจดจำ</string>
 </resources>

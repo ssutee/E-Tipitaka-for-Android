@@ -810,6 +810,17 @@ public class SearchDialog extends Dialog {
 				cursor.close();
 				searchResultsDBAdapter.close();
 				updateHistoryList(lang, searchText.getText().toString().trim(),position);
+				
+				BookmarkDBAdapter bookmarkDBAdapter = new BookmarkDBAdapter(context);
+				bookmarkDBAdapter.open();
+				cursor = bookmarkDBAdapter.getEntries(lang, keywords);
+				cursor.moveToFirst();
+				while(!cursor.isAfterLast()) {
+					bookmarkDBAdapter.removeEntry(cursor.getInt(0));
+					cursor.moveToNext();
+				}
+				bookmarkDBAdapter.close();
+				
 				return;
 				
 			}

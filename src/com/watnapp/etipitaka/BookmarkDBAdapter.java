@@ -125,6 +125,14 @@ public class BookmarkDBAdapter {
 				where, null, null, null, null);
 	}
 	
+	public Cursor getEntries(String _lang, int _volume, int _page, String _keywords) {
+		String where = String.format("%s = '%s' AND %s = %d AND %s = %d AND %s = '%s'", 
+				KEY_LANG, _lang, KEY_VOLUME, _volume, KEY_PAGE, _page, KEY_KEYWORDS, _keywords);
+		return db.query(DATABASE_TABLE, 
+				new String[] {KEY_ID, KEY_LANG, KEY_VOLUME, KEY_PAGE, KEY_ITEM, KEY_NOTE, KEY_KEYWORDS}, 
+				where, null, null, null, null);		
+	}
+	
 	public Cursor getEntries(String _lang, String sortKey, boolean isDesc) {
 		String where = KEY_LANG + "=" + "'" + _lang + "'";
 		String orderby;

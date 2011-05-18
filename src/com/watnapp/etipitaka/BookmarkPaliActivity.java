@@ -327,7 +327,7 @@ public class BookmarkPaliActivity extends Activity {
 				AlertDialog.Builder builder = new AlertDialog.Builder(BookmarkPaliActivity.this);
 				
 				CharSequence[] items1 = {getString(R.string.edit), getString(R.string.delete)};
-				CharSequence[] items2 = {getString(R.string.edit)};
+				//CharSequence[] items2 = {getString(R.string.edit)};
 				
 				
 		        sortKey = prefs.getString("BM_SORT_KEY", BookmarkDBAdapter.KEY_VOLUME);
@@ -362,13 +362,16 @@ public class BookmarkPaliActivity extends Activity {
 						}
 					});
 				} else {
-					builder.setItems(items2, new DialogInterface.OnClickListener() {
+					builder.setItems(items1, new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							switch(which) {
 								case 0: // edit
 									editItemAt(selectedItemPosition);
 									break;
+								case 1: // delete
+									deleteItemAt(selectedItemPosition);
+									break;									
 							}
 							bmItemDialog.dismiss();
 						}
