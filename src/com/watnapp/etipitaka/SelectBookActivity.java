@@ -493,7 +493,7 @@ public class SelectBookActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				if(isInternetOn()) {
-					downloadFile("http://203.114.103.68/etipitaka/android/ETPK.zip", "ETPK.zip");
+					downloadFile("http://101.109.250.141/etipitaka/android/ETPK.zip", "ETPK.zip");
 				} else {
 					AlertDialog.Builder builder = new AlertDialog.Builder(SelectBookActivity.this);
 					builder.setTitle(getString(R.string.internet_not_connected));
