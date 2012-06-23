@@ -121,7 +121,7 @@
 	<string name="about_content_3">๑. ทรงกำชับให้ศึกษาปฏิบัติเฉพาะจากคำของพระองค์เท่านั้น\n(ทุก. อํ. ๒๐/๙๒/๒๙๒ ภาษาบาลี)</string>
 	<string name="about_content_4">๒. ทรงบอกวิธีแก้ไขความผิดเพี้ยนในคำสอน (หลักมหาปเทส ๔)\n(อุปริ. ม. ๑๔/๕๓/๔๑ ภาษาบาลี)</string>
 	<string name="program_thai_name">โปรแกรมค้นหาและเทียบเคียง\nพุทธวจนในพระไตรปิฎก</string>
-	<string name="license">E-Tipitaka เป็นซอฟท์แวร์เสรี ตามสนธิสัญญา GPL 3.0</string>
+	<string name="license">E-Tipitaka เป็นซอฟท์แวร์เสรี ตามสนธิสัญญา Apache 2.0</string>
 	<string name="edit_n_suts">แก้ไขจำนวนพระสูตร</string>
 	<string name="enter_n_suts">ป้อนจำนวนพระสูตร</string>
 	<string name="assign_priority">กำหนดค่าหมายเลขลำดับ</string>
